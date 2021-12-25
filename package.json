@@ -103,8 +103,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:watch": "nodemon -r dotenv/config server.js"
-    },
+    "start:watch": "nodemon dist/server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cristian-montes/blend_backend.git"
@@ -119,6 +119,7 @@
     "@babel/core": "^7.16.5",
     "@babel/eslint-parser": "^7.16.5",
     "@babel/plugin-syntax-class-properties": "^7.12.13",
+    "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.4",
     "@types/pg": "^8.6.3",
