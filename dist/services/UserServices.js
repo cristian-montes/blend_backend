@@ -8,9 +8,10 @@ const Users_1 = require("../models/Users");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 class UserServices {
     static async create(user) {
-        const passwordHash = await bcrypt_1.default.hash(user.password_hash, +process.env.SALT_ROUNDS);
+        const passwordHash = await bcrypt_1.default.hash(user.password_hash, Number(process.env.SALT_ROUNDS));
         user.password_hash = passwordHash;
         const newUser = await Users_1.User.InsertUser(user);
+        return newUser;
     }
 }
 exports.UserServices = UserServices;
