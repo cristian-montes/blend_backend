@@ -103,7 +103,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:watch": "nodemon dist/server.js"
+    "start:watch": "nodemon dist/server.js",
+    "setup-db": "node dist/setup-db.js"
   },
   "repository": {
     "type": "git",
@@ -121,6 +122,7 @@
     "@babel/plugin-syntax-class-properties": "^7.12.13",
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.6",
     "@types/node": "^17.0.4",
     "@types/pg": "^8.6.3",
     "eslint": "^8.5.0",

@@ -9,7 +9,6 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const PORT = parseInt(process.env.PORT) || 7890;
 app_1.app.listen(PORT, () => {
-    // console.log('here',process.env.PGSSLMODE)
     console.log(`Started on ${PORT}`);
     process.on('exit', () => {
         console.log('Goodbye!');
