@@ -6,6 +6,7 @@ declare global {
             NODE_ENV: 'development' | 'production';
             PORT?: string;
             SALT_ROUNDS: number;
+            APP_SECRET: string;
         }
     }
 }

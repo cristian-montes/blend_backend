@@ -8,7 +8,7 @@ export const app = express();
 
 
 app.use(express.json());
-// app.use(cookieParser());
+app.use(cookieParser());
 
 app.get('/', async (req:Request, res:Response, next: NextFunction)=>{
     try {

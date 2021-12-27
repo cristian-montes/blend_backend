@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const pool_1 = require("../utils/pool");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 class User {
     constructor(row) {
         this.row = row;
@@ -19,6 +23,21 @@ class User {
         if (!rows[0])
             throw new Error('No accounts registered under this email address');
         return new User(rows[0]);
+    }
+    //-------------------------------------------------------------------------------------//
+    authToken() {
+        return jsonwebtoken_1.default.sign(this.toJSON(), process.env.APP_SECRET, {
+            expiresIn: '24h'
+        });
+    }
+    //------------------------------------------------------------------------------------//
+    toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            email: this.email,
+            password_hash: this.password_hash,
+        };
     }
 }
 exports.User = User;

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
 const Users_1 = require("../models/Users");
 const bcrypt_1 = __importDefault(require("bcrypt"));
+// import jwt from 'jsonwebtoken';
 class UserServices {
     static async create(user) {
         // console.log('USER', user);

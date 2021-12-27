@@ -1,4 +1,5 @@
 import { pool } from '../utils/pool';
+import jwt from 'jsonwebtoken';
 
 export class User {
     id: string;
@@ -31,8 +32,23 @@ export class User {
 
     }
 
-
-
+     //-------------------------------------------------------------------------------------//
+  
+     authToken(){
+        return jwt.sign(this.toJSON(), process.env.APP_SECRET, {
+            expiresIn: '24h'
+        });
+    }
+    //------------------------------------------------------------------------------------//
+    toJSON(){
+        return{
+            id:this.id,
+            name:this.name,
+            email: this.email,
+            password_hash: this.password_hash,
+        };
+    }
+    //--
 
 
 }
