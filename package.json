@@ -2,12 +2,11 @@
   "name": "blend_backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "directories": {
     "lib": "lib"
   },
   "dependencies": {
-    "@types/pg": "^8.6.3",
     "acorn": "^8.6.0",
     "acorn-jsx": "^5.3.2",
     "ajv": "^6.12.6",
@@ -16,6 +15,7 @@
     "ansi-styles": "^4.3.0",
     "argparse": "^2.0.1",
     "balanced-match": "^1.0.2",
+    "bcrypt": "^5.0.1",
     "brace-expansion": "^1.1.11",
     "callsites": "^3.1.0",
     "chalk": "^4.1.2",
@@ -81,7 +81,6 @@
     "path-key": "^3.1.1",
     "pg": "^8.7.1",
     "prelude-ls": "^1.2.1",
-    "prettier": "^2.5.1",
     "progress": "^2.0.3",
     "punycode": "^2.1.1",
     "regexpp": "^3.2.0",
@@ -104,7 +103,9 @@
     "yallist": "^4.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:watch": "nodemon dist/server.js",
+    "setup-db": "node dist/setup-db.js"
   },
   "repository": {
     "type": "git",
@@ -120,6 +121,14 @@
     "@babel/core": "^7.16.5",
     "@babel/eslint-parser": "^7.16.5",
     "@babel/plugin-syntax-class-properties": "^7.12.13",
-    "eslint": "^8.5.0"
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.6",
+    "@types/node": "^17.0.4",
+    "@types/pg": "^8.6.3",
+    "eslint": "^8.5.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
   }
 }
