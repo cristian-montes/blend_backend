@@ -13,9 +13,10 @@ class User {
         this.name = row.name;
         this.email = row.email;
         this.password_hash = row.password_hash;
+        this.connected_acct_id = row.connected_acct_id;
     }
     static async InsertUser(user) {
-        const { rows } = await pool_1.pool.query(`INSERT INTO users_active (name, email, password_hash) VALUES ($1, $2, $3) RETURNING *`, [user.name, user.email, user.password_hash]);
+        const { rows } = await pool_1.pool.query(`INSERT INTO users_active (name, email, password_hash, connected_acct_id) VALUES ($1, $2, $3, $4) RETURNING *`, [user.name, user.email, user.password_hash, user.connected_acct_id]);
         return new User(rows[0]);
     }
     static async findByEmail(email) {
@@ -37,6 +38,7 @@ class User {
             name: this.name,
             email: this.email,
             password_hash: this.password_hash,
+            connected_acct_id: this.connected_acct_id
         };
     }
 }

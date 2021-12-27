@@ -5,7 +5,8 @@ CREATE TABLE users_active (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT,
     email VARCHAR NOT NULL UNIQUE,
-    password_hash VARCHAR NOT NULL
+    password_hash VARCHAR NOT NULL,
+    connected_acct_id VARCHAR NOT NULL
 );
 
 CREATE TABLE transactions (

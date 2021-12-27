@@ -6,18 +6,20 @@ export class User {
     name: string;
     email: string;
     password_hash: string;
+    connected_acct_id: string;
 
-    constructor(public row:{id: string; name:string; email: string;  password_hash: string;}){
+    constructor(public row:{id: string; name:string; email: string;  password_hash: string; connected_acct_id: string;}){
         this.id = row.id; 
         this.name = row.name;
         this.email = row.email;
         this.password_hash = row.password_hash;
+        this.connected_acct_id = row.connected_acct_id;
     }
 
 
-    static async InsertUser(user: { name:string; email:string; password_hash:string;}){
+    static async InsertUser(user: { name:string; email:string; password_hash:string; connected_acct_id: string;}){
         const { rows } = await pool.query(
-            `INSERT INTO users_active (name, email, password_hash) VALUES ($1, $2, $3) RETURNING *`, [user.name, user.email, user.password_hash]
+            `INSERT INTO users_active (name, email, password_hash, connected_acct_id) VALUES ($1, $2, $3, $4) RETURNING *`, [user.name, user.email, user.password_hash, user.connected_acct_id]
         )
         return new User(rows[0])
     }
@@ -46,6 +48,7 @@ export class User {
             name:this.name,
             email: this.email,
             password_hash: this.password_hash,
+            connected_acct_id: this.connected_acct_id
         };
     }
     //--
