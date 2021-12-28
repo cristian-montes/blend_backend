@@ -3,11 +3,10 @@ import { Request, Response, NextFunction } from "express";
 
 const ensureAuth = (req:Request, res:Response, next: NextFunction)=>{ 
     try {
-        const userData = req.cookies;
-
-        const user = jwt.verify(userData.session, process.env.APP_SECRET);
-
-        // req.user = user;
+        const { session } = req.cookies;
+        console.log("req.user", jwt.verify(session, process.env.APP_SECRET)) //DELETE WHEN NO LONGER NEEDED
+        req.user = jwt.verify(session, process.env.APP_SECRET);
+        next();
 
     } catch (error) {
         next(error);

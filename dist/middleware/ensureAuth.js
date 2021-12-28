@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const ensureAuth = (req, res, next) => {
     try {
-        const userData = req.cookies;
-        const user = jsonwebtoken_1.default.verify(userData.session, process.env.APP_SECRET);
-        // req.user = user;
+        const { session } = req.cookies;
+        console.log("req.user", jsonwebtoken_1.default.verify(session, process.env.APP_SECRET)); //DELETE WHEN NO LONGER NEEDED
+        req.user = jsonwebtoken_1.default.verify(session, process.env.APP_SECRET);
+        next();
     }
     catch (error) {
         next(error);
