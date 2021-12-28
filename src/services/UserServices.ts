@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 export class UserServices{
     
-    static async create(user: {id:string; name:string; email:string; password_hash:string;}){
+    static async create(user: {id:string; name:string; email:string; password_hash:string; connected_acct_id: string;}){
         // console.log('USER', user);
         const passwordHash = await bcrypt.hash( user.password_hash, Number(process.env.SALT_ROUNDS));
         user.password_hash = passwordHash;
