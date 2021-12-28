@@ -9,7 +9,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.pool = new pg_1.Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.PGSSLMODE && { rejectUnauthorized: false } ? false : true
+    ssl: process.env.PGSSLMODE && { rejectUnauthorized: false } ? true : false
 });
 exports.pool.on('connect', () => console.log('Postgres connected'));
 // export const pool = new Pool({
