@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import cookieParser from 'cookie-parser';
 
 import authentication  from './controllers/auth';
+import theTransactions from './controllers/transactions';
 
 export const app = express();
 
@@ -23,3 +24,4 @@ app.get('/', async (req:Request, res:Response, next: NextFunction)=>{
 
 
 app.use('/auth', authentication)
+app.use('/transactions', theTransactions)

@@ -7,7 +7,7 @@ const ensureAuth = (req:Request, res:Response, next: NextFunction)=>{
 
         const user = jwt.verify(userData.session, process.env.APP_SECRET);
 
-        // req.user = user --> LOOK AT THIS OBJECT WHEN CREATED TO GRAB THE RIGHT KEY
+        // req.user = user;
 
     } catch (error) {
         next(error);

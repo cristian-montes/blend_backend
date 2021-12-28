@@ -8,7 +8,7 @@ const ensureAuth = (req, res, next) => {
     try {
         const userData = req.cookies;
         const user = jsonwebtoken_1.default.verify(userData.session, process.env.APP_SECRET);
-        // req.user = user --> LOOK AT THIS OBJECT WHEN CREATED TO GRAB THE RIGHT KEY
+        // req.user = user;
     }
     catch (error) {
         next(error);

@@ -31,9 +31,19 @@ export class User {
         if (!rows[0]) throw new Error('No accounts registered under this email address');
 
         return new User(rows[0]);
-
     }
 
+
+
+    static async findById(id:number) {
+        const { rows } = await pool.query(
+          'SELECT FROM users_active WHERE id=$1',
+          [id]
+        );
+        if(!rows[0]) throw new Error(`No user with Connected Acct Id: ${id}`);
+
+        return new User(rows[0]);
+    }
      //-------------------------------------------------------------------------------------//
   
      authToken(){
