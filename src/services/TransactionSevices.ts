@@ -13,7 +13,6 @@ export class TransactionServices{
     static async createTransaction(transaction:{       
         sender_id: number;
         recipient_id: number;
-        payment_method_id: string;
         amount: number; 
         }):Promise<Transaction>{
 

@@ -105,6 +105,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/server.js",
     "start:watch": "nodemon dist/server.js",
     "setup-db": "node dist/setup-db.js"
   },
