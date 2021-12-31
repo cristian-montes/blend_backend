@@ -15,7 +15,10 @@ const authentication = Router();
     authentication.post('/signup', async (req:Request, res:Response, next: NextFunction)=>{
         try {
             const newUser = await UserServices.create(req.body);
-            attachCookie(res, newUser);
+            res.cookie('session', newUser.authToken(),{
+                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24,
+            })
             res.send(newUser)
         } catch (error) {
             next(error);
@@ -26,7 +29,10 @@ const authentication = Router();
     authentication.post('/signin', async (req:Request, res:Response, next: NextFunction)=>{
         try {
             const existingUser = await UserServices.authorize(req.body);
-            attachCookie(res, existingUser);
+            res.cookie('session', existingUser.authToken(),{
+                httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24,
+            })
             res.send(existingUser)
         } catch (error) {
             next(error);

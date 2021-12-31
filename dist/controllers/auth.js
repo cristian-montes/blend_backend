@@ -12,7 +12,10 @@ const authentication = (0, express_1.Router)();
 authentication.post('/signup', async (req, res, next) => {
     try {
         const newUser = await UserServices_1.UserServices.create(req.body);
-        attachCookie(res, newUser);
+        res.cookie('session', newUser.authToken(), {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24,
+        });
         res.send(newUser);
     }
     catch (error) {
@@ -22,7 +25,10 @@ authentication.post('/signup', async (req, res, next) => {
 authentication.post('/signin', async (req, res, next) => {
     try {
         const existingUser = await UserServices_1.UserServices.authorize(req.body);
-        attachCookie(res, existingUser);
+        res.cookie('session', existingUser.authToken(), {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24,
+        });
         res.send(existingUser);
     }
     catch (error) {
