@@ -20,7 +20,11 @@ class User {
         return new User(rows[0]);
     }
     static async findByEmail(email) {
-        const { rows } = await pool_1.pool.query(`SELECT * FROM users_active WHERE email=$1`, [email]);
+        console.log('email', email.email);
+        const { rows } = await pool_1.pool.query(
+        // 'SELECT * FROM users_active'
+        'SELECT * FROM users_active WHERE email=$1', [email.email]);
+        console.log('rows', rows[0]);
         if (!rows[0])
             throw new Error('No accounts registered under this email address');
         return new User(rows[0]);

@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 
 export class UserServices{
     
-    static async create(user: {id:string; name:string; email:string; password_hash:string; connected_acct_id: string;}){
+    static async create( user: {id:string; name:string; email:string; password_hash:string; connected_acct_id: string;} ){
         // console.log('USER', user);
         const passwordHash = await bcrypt.hash( user.password_hash, Number(process.env.SALT_ROUNDS));
         user.password_hash = passwordHash;
@@ -12,9 +12,9 @@ export class UserServices{
         return newUser;
     }
 
-    static async authorize(user:{email:string; password_hash:string;}){
+    static async authorize( user:{email:string; password_hash:string;} ){
         try {
-            const existingUser = await User.findByEmail(user.email);
+            const existingUser = await User.findByEmail(user);
 
             const passwordMatching = await bcrypt.compare(user.password_hash, existingUser.password_hash);
             if(!passwordMatching) throw new Error('Invalid Password');
@@ -26,7 +26,6 @@ export class UserServices{
             throw err;
         }
     }
-
 
     // static authToken(theUser:any) {
     //     return jwt.sign({ theUser: theUser.toJSON() }, process.env.APP_SECRET, {

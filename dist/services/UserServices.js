@@ -17,7 +17,7 @@ class UserServices {
     }
     static async authorize(user) {
         try {
-            const existingUser = await Users_1.User.findByEmail(user.email);
+            const existingUser = await Users_1.User.findByEmail(user);
             const passwordMatching = await bcrypt_1.default.compare(user.password_hash, existingUser.password_hash);
             if (!passwordMatching)
                 throw new Error('Invalid Password');

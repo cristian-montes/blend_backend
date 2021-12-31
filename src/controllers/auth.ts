@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
+import ensureAuth from "../middleware/ensureAuth";
 import { User } from "../models/Users";
 import { UserServices } from "../services/UserServices";
 
@@ -10,6 +11,7 @@ const attachCookie =(res:Response, theUser:any) => {
 }
 
 const authentication = Router();
+
     authentication.post('/signup', async (req:Request, res:Response, next: NextFunction)=>{
         try {
             const newUser = await UserServices.create(req.body);
