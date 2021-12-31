@@ -1,13 +1,15 @@
 import express from 'express';
 import { Request, Response, NextFunction } from "express";
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 import authentication  from './controllers/auth';
 import theTransactions from './controllers/transactions';
+import error from './middleware/error';
 
 export const app = express();
 
-
+app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 
@@ -23,5 +25,6 @@ app.get('/', async (req:Request, res:Response, next: NextFunction)=>{
 
 
 
-app.use('/auth', authentication)
-app.use('/transactions', theTransactions)
+app.use('/auth', authentication);
+app.use('/transactions', theTransactions);
+app.use(error);
