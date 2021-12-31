@@ -5,8 +5,8 @@ import { UserServices } from "../services/UserServices";
 
 const attachCookie =(res:Response, theUser:any) => {
     res.cookie('session', theUser.authToken(),{
-        httpOnly: false,
-        maxAge: 1000 * 60 * 60 * 24,
+        // httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 2,
     })
 }
 

@@ -4,8 +4,8 @@ const express_1 = require("express");
 const UserServices_1 = require("../services/UserServices");
 const attachCookie = (res, theUser) => {
     res.cookie('session', theUser.authToken(), {
-        httpOnly: false,
-        maxAge: 1000 * 60 * 60 * 24,
+        // httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 2,
     });
 };
 const authentication = (0, express_1.Router)();
