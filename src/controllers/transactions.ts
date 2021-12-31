@@ -7,11 +7,11 @@ import { User } from "../models/Users";
 
 const theTransactions = Router();
 
-theTransactions.get('/searchrecipient', ensureAuth ,async (req:Request, res:Response, next: NextFunction)=>{
+theTransactions.get('/searchrecipient/:email', ensureAuth ,async (req:Request, res:Response, next: NextFunction)=>{
     try {
-        console.log('BODY',req.body);
-        const searchedRecipient = await User.findByEmail(req.body)
-        console.log('searchedRecipient', searchedRecipient)
+
+        const searchedRecipient = await User.findByEmail(req.params.email);
+
         res.send(searchedRecipient)
     } catch (error) {
         next(error);

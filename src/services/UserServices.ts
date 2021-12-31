@@ -14,7 +14,7 @@ export class UserServices{
 
     static async authorize( user:{email:string; password_hash:string;} ){
         try {
-            const existingUser = await User.findByEmail(user);
+            const existingUser = await User.findByEmail(user.email);
 
             const passwordMatching = await bcrypt.compare(user.password_hash, existingUser.password_hash);
             if(!passwordMatching) throw new Error('Invalid Password');
