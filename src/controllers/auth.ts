@@ -5,7 +5,7 @@ import { UserServices } from "../services/UserServices";
 
 const attachCookie =(res:Response, theUser:any) => {
     res.cookie('session', theUser.authToken(),{
-        // httpOnly: true,
+        httpOnly: true,
         maxAge: 1000 * 60 * 60 * 2,
     })
 }
@@ -15,8 +15,8 @@ const authentication = Router();
     authentication.post('/signup', async (req:Request, res:Response, next: NextFunction)=>{
         try {
             const newUser = await UserServices.create(req.body);
-            attachCookie(res, newUser);
-            res.send(newUser)
+            const cookies = attachCookie(res, newUser);
+            res.send({newUser, cookies})
         } catch (error) {
             next(error);
         }
@@ -26,7 +26,8 @@ const authentication = Router();
     authentication.post('/signin', async (req:Request, res:Response, next: NextFunction)=>{
         try {
             const existingUser = await UserServices.authorize(req.body);
-            attachCookie(res, existingUser);
+            attachCookie(res, existingUser)
+      
             res.send(existingUser)
         } catch (error) {
             next(error);
@@ -43,7 +44,6 @@ const authentication = Router();
             next(error);
         }
     })
-
 
 
 export default authentication;

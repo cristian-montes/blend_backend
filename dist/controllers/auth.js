@@ -4,7 +4,7 @@ const express_1 = require("express");
 const UserServices_1 = require("../services/UserServices");
 const attachCookie = (res, theUser) => {
     res.cookie('session', theUser.authToken(), {
-        // httpOnly: true,
+        httpOnly: true,
         maxAge: 1000 * 60 * 60 * 2,
     });
 };
@@ -12,8 +12,8 @@ const authentication = (0, express_1.Router)();
 authentication.post('/signup', async (req, res, next) => {
     try {
         const newUser = await UserServices_1.UserServices.create(req.body);
-        attachCookie(res, newUser);
-        res.send(newUser);
+        const cookies = attachCookie(res, newUser);
+        res.send({ newUser, cookies });
     }
     catch (error) {
         next(error);

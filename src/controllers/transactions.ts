@@ -21,7 +21,7 @@ theTransactions.post('/makeTransaction', ensureAuth, async (req: Request, res:Re
 theTransactions.get('/searchrecipient/:email', ensureAuth ,async (req:Request, res:Response, next: NextFunction)=>{
     try {
         const searchedRecipient = await User.findByEmail(req.params.email);
-
+    console.log('USER',req.user);
         res.send(searchedRecipient)
     } catch (error) {
         next(error);
