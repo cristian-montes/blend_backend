@@ -4,7 +4,7 @@ import { User } from "../models/Users";
 import { UserServices } from "../services/UserServices";
 
 const attachCookie =(res:Response, theUser:any) => {
-    res.cookie('session', theUser.authToken(theUser),{
+    res.cookie('session', theUser.authToken(),{
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24,
     })
