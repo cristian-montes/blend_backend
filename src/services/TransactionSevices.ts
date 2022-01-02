@@ -17,7 +17,7 @@ export class TransactionServices{
         }):Promise<Transaction>{
 
         const recipient: User = await User.findById(transaction.recipient_id);
-        
+        const convertedAmount = transaction.amount/100
         const params: Stripe.PaymentIntentCreateParams = {
             amount: transaction.amount,
             currency: 'usd',
@@ -34,7 +34,7 @@ export class TransactionServices{
             sender_id:transaction.sender_id,
             recipient_id: transaction.recipient_id,
             payment_intent_id: payment_intent_id,
-            amount: transaction.amount,
+            amount: convertedAmount,
             payment_confirmed: false,
          })
 

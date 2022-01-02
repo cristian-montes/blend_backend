@@ -49,6 +49,7 @@ export class User {
      //-------------------------------------------------------------------------------------//
   
      authToken(){
+         console.log('AUTHTOKEN',this.row)
         return jwt.sign(this.toJSON(), process.env.APP_SECRET, {
             expiresIn: '24h'
         });
