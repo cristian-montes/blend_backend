@@ -11,7 +11,10 @@ const auth_1 = __importDefault(require("./controllers/auth"));
 const transactions_1 = __importDefault(require("./controllers/transactions"));
 const error_1 = __importDefault(require("./middleware/error"));
 exports.app = (0, express_1.default)();
-exports.app.use((0, cors_1.default)());
+exports.app.use((0, cors_1.default)({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 exports.app.use(express_1.default.json());
 exports.app.use((0, cookie_parser_1.default)());
 exports.app.get('/', async (req, res, next) => {
