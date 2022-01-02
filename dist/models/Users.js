@@ -31,6 +31,14 @@ class User {
             throw new Error(`No user with Connected Acct Id: ${id}`);
         return new User(rows[0]);
     }
+    static async getUserTransactionsById(id) {
+        const { rows } = await pool_1.pool.query(`SELECT users_active.id, name, email, amount 
+                FROM transactions
+            LEFT JOIN users_active ON users_active.id = transactions.recipient_id
+            WHERE sender_id=$1
+            ORDER BY transactions.amount`, [id]);
+        return rows;
+    }
     //-------------------------------------------------------------------------------------//
     authToken() {
         console.log('AUTHTOKEN', this.row);

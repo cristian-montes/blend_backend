@@ -11,6 +11,10 @@ const stripe = new stripe_1.default('sk_test_51K9YyABg9yAQBAw8rGSNxfAYWuicQ83S2Z
     apiVersion: "2020-08-27",
     typescript: true,
 });
+// const stripe = new Stripe(process.env.STRIPE_KEY, {
+//     apiVersion:"2020-08-27",
+//     typescript: true,
+// });
 class TransactionServices {
     static async createTransaction(transaction) {
         const recipient = await Users_1.User.findById(transaction.recipient_id);

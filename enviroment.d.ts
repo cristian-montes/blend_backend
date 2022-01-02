@@ -7,6 +7,7 @@ declare global {
             PORT?: string;
             SALT_ROUNDS: number;
             APP_SECRET: string;
+            STRIPE_KEY:string;
         }
     }
 }

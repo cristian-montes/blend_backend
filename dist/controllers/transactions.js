@@ -27,4 +27,13 @@ theTransactions.post('/makeTransaction', ensureAuth_1.default, async (req, res, 
         next(error);
     }
 });
+theTransactions.get('/transactionhistory', ensureAuth_1.default, async (req, res, next) => {
+    try {
+        const userTransactionHistoty = await Users_1.User.getUserTransactionsById(req.user.id);
+        res.send(userTransactionHistoty);
+    }
+    catch (error) {
+        next(error);
+    }
+});
 exports.default = theTransactions;

@@ -7,6 +7,10 @@ const stripe = new Stripe('sk_test_51K9YyABg9yAQBAw8rGSNxfAYWuicQ83S2ZPG1HizU2BH
     typescript: true,
 });
 
+// const stripe = new Stripe(process.env.STRIPE_KEY, {
+//     apiVersion:"2020-08-27",
+//     typescript: true,
+// });
 
 
 export class TransactionServices{

@@ -28,6 +28,15 @@ theTransactions.post('/makeTransaction', ensureAuth, async (req: Request, res:Re
     }
 })
 
+theTransactions.get('/transactionhistory', ensureAuth ,async (req:Request, res:Response, next: NextFunction)=>{
+    try {
+        const userTransactionHistoty = await User.getUserTransactionsById(req.user.id)
+        res.send(userTransactionHistoty);
+    } catch (error) {
+        next(error);
+    }
+})
+
 
 
 export default theTransactions;
