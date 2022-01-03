@@ -12,8 +12,7 @@ const transactions_1 = __importDefault(require("./controllers/transactions"));
 const error_1 = __importDefault(require("./middleware/error"));
 exports.app = (0, express_1.default)();
 exports.app.use((0, cors_1.default)({
-    origin: 'http://localhost:3000',
-    // origin:true,
+    origin: true,
     credentials: true
 }));
 exports.app.use(express_1.default.json());

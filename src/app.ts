@@ -10,8 +10,7 @@ import error from './middleware/error';
 export const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:3000',
-    // origin:true,
+    origin:true,
     credentials: true
 }))
 app.use(express.json());
