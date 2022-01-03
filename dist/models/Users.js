@@ -32,16 +32,26 @@ class User {
         return new User(rows[0]);
     }
     static async getUserTransactionsById(id) {
-        const { rows } = await pool_1.pool.query(`SELECT users_active.id, name, email, amount 
-                FROM transactions
+        const userSentTo = await pool_1.pool.query(`SELECT users_active.id AS recipientId, name, email, amount 
+            FROM transactions
             LEFT JOIN users_active ON users_active.id = transactions.recipient_id
-            WHERE sender_id=$1
-            ORDER BY transactions.amount`, [id]);
-        return rows;
+            WHERE sender_id=$1`, [id]);
+        const usersRecivedFrom = await pool_1.pool.query(`SELECT users_active.id AS senderId, name, email, amount 
+            FROM transactions
+            LEFT JOIN users_active ON users_active.id = transactions.sender_id
+            WHERE recipient_id=$1`, [id]);
+        const convinedTransactions = [];
+        for (const transaction of usersRecivedFrom.rows) {
+            convinedTransactions.push(transaction);
+        }
+        for (const transaction of userSentTo.rows) {
+            convinedTransactions.push(transaction);
+        }
+        return convinedTransactions;
     }
     //-------------------------------------------------------------------------------------//
     authToken() {
-        console.log('AUTHTOKEN', this.row);
+        //  console.log('AUTHTOKEN',this.row)
         return jsonwebtoken_1.default.sign(this.toJSON(), process.env.APP_SECRET, {
             expiresIn: '24h'
         });
