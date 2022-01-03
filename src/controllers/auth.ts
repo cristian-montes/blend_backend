@@ -19,9 +19,9 @@ const authentication = Router();
             const galleta = res.cookie('session', newUser.authToken(),{
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 2,
-                domain:'http://localhost:3000',
+                domain: process.env.APP_URL,
                 sameSite:'none',
-                // secure:true
+                secure:!!process.env.SECURE_COOKIES
             })
 
             console.log('GALLETA', galleta)
@@ -39,9 +39,9 @@ const authentication = Router();
             const galleta = res.cookie('session', existingUser.authToken(),{
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 2,
-                domain:'http://localhost:3000',
+                domain: process.env.APP_URL,
                 sameSite:'none',
-                // secure:true
+                secure:!!process.env.SECURE_COOKIES
             })
             console.log('GALLETA', galleta)
 
@@ -56,8 +56,8 @@ const authentication = Router();
             res.clearCookie('session', {
                 httpOnly: true,
                 sameSite:'none',
-                domain:'http://localhost:3000',
-                // secure:true
+                domain: process.env.APP_URL,
+                secure:!!process.env.SECURE_COOKIES
             });
             res.send('Sad to see you not do more money moves for now :(');
         } catch (error) {
