@@ -32,11 +32,11 @@ class User {
         return new User(rows[0]);
     }
     static async getUserTransactionsById(id) {
-        const userSentTo = await pool_1.pool.query(`SELECT users_active.id AS recipientId, name, email, amount 
+        const userSentTo = await pool_1.pool.query(`SELECT users_active.id AS recipientId, name, email, amount, transactions.payment_intent_id AS paymentId
             FROM transactions
             LEFT JOIN users_active ON users_active.id = transactions.recipient_id
             WHERE sender_id=$1`, [id]);
-        const usersRecivedFrom = await pool_1.pool.query(`SELECT users_active.id AS senderId, name, email, amount 
+        const usersRecivedFrom = await pool_1.pool.query(`SELECT users_active.id AS senderId, name, email, amount, transactions.payment_intent_id AS paymentId 
             FROM transactions
             LEFT JOIN users_active ON users_active.id = transactions.sender_id
             WHERE recipient_id=$1`, [id]);

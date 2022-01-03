@@ -50,14 +50,14 @@ export class User {
 
     static async getUserTransactionsById(id:number){
         const userSentTo = await pool.query(
-            `SELECT users_active.id AS recipientId, name, email, amount 
+            `SELECT users_active.id AS recipientId, name, email, amount, transactions.payment_intent_id AS paymentId
             FROM transactions
             LEFT JOIN users_active ON users_active.id = transactions.recipient_id
             WHERE sender_id=$1`,[id]
             )
             
         const usersRecivedFrom = await pool.query(
-            `SELECT users_active.id AS senderId, name, email, amount 
+            `SELECT users_active.id AS senderId, name, email, amount, transactions.payment_intent_id AS paymentId 
             FROM transactions
             LEFT JOIN users_active ON users_active.id = transactions.sender_id
             WHERE recipient_id=$1`, [id]

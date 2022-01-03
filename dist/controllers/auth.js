@@ -16,6 +16,7 @@ authentication.post('/signup', async (req, res, next) => {
         const galleta = res.cookie('session', newUser.authToken(), {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,
+            domain: 'http://localhost:3000'
         });
         console.log('GALLETA', galleta);
         res.send(newUser);
@@ -31,6 +32,7 @@ authentication.post('/signin', async (req, res, next) => {
         const galleta = res.cookie('session', existingUser.authToken(), {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,
+            domain: 'http://localhost:3000'
         });
         console.log('GALLETA', galleta);
         res.send(existingUser);
