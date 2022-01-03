@@ -19,7 +19,8 @@ const authentication = Router();
             const galleta = res.cookie('session', newUser.authToken(),{
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 2,
-                sameSite:'none'
+                sameSite:'none',
+                secure:true
             })
 
             console.log('GALLETA', galleta)
