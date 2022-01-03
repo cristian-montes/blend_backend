@@ -17,7 +17,7 @@ authentication.post('/signup', async (req, res, next) => {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,
             sameSite: 'none',
-            secure: true
+            // secure:true
         });
         console.log('GALLETA', galleta);
         res.send(newUser);
@@ -34,7 +34,7 @@ authentication.post('/signin', async (req, res, next) => {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,
             sameSite: 'none',
-            secure: true
+            // secure:true
         });
         console.log('GALLETA', galleta);
         res.send(existingUser);
@@ -48,7 +48,7 @@ authentication.get('/logout', async (req, res, next) => {
         res.clearCookie('session', {
             httpOnly: true,
             sameSite: 'none',
-            secure: true
+            // secure:true
         });
         res.send('Sad to see you not do more money moves for now :(');
     }

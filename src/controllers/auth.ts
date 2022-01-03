@@ -20,7 +20,7 @@ const authentication = Router();
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 2,
                 sameSite:'none',
-                secure:true
+                // secure:true
             })
 
             console.log('GALLETA', galleta)
@@ -39,7 +39,7 @@ const authentication = Router();
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 2,
                 sameSite:'none',
-                secure:true
+                // secure:true
             })
             console.log('GALLETA', galleta)
 
@@ -54,7 +54,7 @@ const authentication = Router();
             res.clearCookie('session', {
                 httpOnly: true,
                 sameSite:'none',
-                secure:true
+                // secure:true
             });
             res.send('Sad to see you not do more money moves for now :(');
         } catch (error) {
