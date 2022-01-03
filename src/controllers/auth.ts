@@ -38,7 +38,8 @@ const authentication = Router();
             const galleta = res.cookie('session', existingUser.authToken(),{
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 2,
-                domain:'http://localhost:3000'
+                sameSite:'none',
+                secure:true
             })
             console.log('GALLETA', galleta)
 
@@ -51,7 +52,9 @@ const authentication = Router();
     authentication.get('/logout', async (req:Request, res:Response, next:NextFunction)=>{
         try {
             res.clearCookie('session', {
-                httpOnly: true
+                httpOnly: true,
+                sameSite:'none',
+                secure:true
             });
             res.send('Sad to see you not do more money moves for now :(');
         } catch (error) {

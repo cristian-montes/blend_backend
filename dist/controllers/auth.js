@@ -33,7 +33,8 @@ authentication.post('/signin', async (req, res, next) => {
         const galleta = res.cookie('session', existingUser.authToken(), {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,
-            domain: 'http://localhost:3000'
+            sameSite: 'none',
+            secure: true
         });
         console.log('GALLETA', galleta);
         res.send(existingUser);
@@ -45,7 +46,9 @@ authentication.post('/signin', async (req, res, next) => {
 authentication.get('/logout', async (req, res, next) => {
     try {
         res.clearCookie('session', {
-            httpOnly: true
+            httpOnly: true,
+            sameSite: 'none',
+            secure: true
         });
         res.send('Sad to see you not do more money moves for now :(');
     }
