@@ -16,12 +16,12 @@ const authentication = Router();
         try {
             const newUser = await UserServices.create(req.body);
             // attachCookie(res, newUser);
-            res.cookie('session', newUser.authToken(),{
+            console.log(process.env.APP_URL)
+            console.log('auth token',newUser.authToken())
+            console.log(!!process.env.SECURE_COOKIES)
+            res.cookie('mm_session', newUser.authToken(),{
                 httpOnly: true,
-                maxAge: 1000 * 60 * 60 * 2,
-                domain: process.env.APP_URL,
-                sameSite:'none',
-                secure:!!process.env.SECURE_COOKIES
+                maxAge: 1000 * 60 * 60 * 2
             })
             res.send(newUser)
         } catch (error) {
@@ -34,12 +34,12 @@ const authentication = Router();
         try {
             const existingUser = await UserServices.authorize(req.body);
             // attachCookie(res, existingUser);
-            res.cookie('session', existingUser.authToken(),{
+            console.log(process.env.APP_URL)
+            console.log('auth token',existingUser.authToken())
+            console.log(!!process.env.SECURE_COOKIES)
+            res.cookie('mm_session', existingUser.authToken(),{
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 2,
-                domain: process.env.APP_URL,
-                sameSite:'none',
-                secure:!!process.env.SECURE_COOKIES
             })
 
             res.send(existingUser)
@@ -50,11 +50,8 @@ const authentication = Router();
 
     authentication.get('/logout', async (req:Request, res:Response, next:NextFunction)=>{
         try {
-            res.clearCookie('session', {
+            res.clearCookie('mm_session', {
                 httpOnly: true,
-                sameSite:'none',
-                domain: process.env.APP_URL,
-                secure:!!process.env.SECURE_COOKIES
             });
             res.send('Sad to see you not do more money moves for now :(');
         } catch (error) {
