@@ -84,7 +84,6 @@ export class User {
      //-------------------------------------------------------------------------------------//
   
      authToken(){
-        //  console.log('AUTHTOKEN',this.row)
         return jwt.sign(this.toJSON(), process.env.APP_SECRET, {
             expiresIn: '24h'
         });
@@ -99,7 +98,6 @@ export class User {
             connected_acct_id: this.connected_acct_id
         };
     }
-    //--
 
 
 }

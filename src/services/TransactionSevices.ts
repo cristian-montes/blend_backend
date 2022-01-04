@@ -3,15 +3,17 @@ import Stripe from "stripe";
 import { User } from "../models/Users";
 import { response } from "express";
 
-// const stripe = new Stripe('sk_test_51K9YyABg9yAQBAw8rGSNxfAYWuicQ83S2ZPG1HizU2BHdkhy9IS06NjeBu31HvAiIf2VrhTJIlPUDiAneIWkhDnS00BD8M2sqH',{
-//     apiVersion:"2020-08-27",
-//     typescript: true,
-// });
-
-const stripe = new Stripe(process.env.STRIPE_KEY, {
+const stripe = new Stripe('sk_test_51K9YyABg9yAQBAw8rGSNxfAYWuicQ83S2ZPG1HizU2BHdkhy9IS06NjeBu31HvAiIf2VrhTJIlPUDiAneIWkhDnS00BD8M2sqH',{
     apiVersion:"2020-08-27",
     typescript: true,
 });
+
+
+//*******Example to add your live.test keys for production purposes */
+// const stripe = new Stripe(process.env.STRIPE_KEY, {
+//     apiVersion:"2020-08-27",
+//     typescript: true,
+// });
 
 
 export class TransactionServices{
@@ -20,12 +22,13 @@ export class TransactionServices{
         recipient_id: number;
         amount: number; 
         payment_method_id: string;
-        }):Promise<Transaction>{
+        }){
 
         const recipient: User = await User.findById(transaction.recipient_id);
         const convertedAmount = transaction.amount/100
         
         // **** to transfer ****//
+        
         const params: Stripe.PaymentIntentCreateParams = {
           payment_method_types: ['card'],
           payment_method: transaction.payment_method_id,
@@ -36,21 +39,11 @@ export class TransactionServices{
           }
         };
 
-        const resposnse = await stripe.paymentIntents.create(params)
+        const response = await stripe.paymentIntents.create(params)
 
-        // const params: Stripe.PaymentIntentCreateParams = {
-        //     amount: transaction.amount,
-        //     currency: 'usd',
-        //     payment_method_types: ['card'],
-        //     payment_method: transaction.payment_id_token
-        //   };
+        const payment_intent_id = response.id;
 
-        // const resposnse = await stripe.paymentIntents.create(params,{
-        //     stripeAccount: recipient.connected_acct_id
-        //   })
-        console.log('RESPONSE',resposnse)
-
-        const payment_intent_id = resposnse.id;
+         // **** to transfer ****//
 
         const setTransaction = await Transaction.insertTransaction({
             sender_id:transaction.sender_id,
@@ -60,7 +53,7 @@ export class TransactionServices{
             payment_confirmed: true,
          })
 
-         return setTransaction;
+         return {...setTransaction.row, client_secret:response.client_secret}
     }
 
 

@@ -20,8 +20,7 @@ theTransactions.get('/searchrecipient/:email', ensureAuth ,async (req:Request, r
 theTransactions.post('/makeTransaction', ensureAuth, async (req: Request, res:Response, next: NextFunction)=>{
     try {
         const newTransaction = await TransactionServices.createTransaction({sender_id:req.user.id,...req.body});
-       
-        console.log('BODY',req.body);
+    
         res.send(newTransaction);
     } catch (error) {
         next(error);
