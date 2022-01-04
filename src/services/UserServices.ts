@@ -27,17 +27,4 @@ export class UserServices{
         }
     }
 
-    // static authToken(theUser:any) {
-    //     return jwt.sign({ theUser: theUser.toJSON() }, process.env.APP_SECRET, {
-    //       expiresIn: '24h'
-    //     });
-    //   }
-
-      //*************WE NEED TO DOUBLE CHECK */
-    //   static verifyAuthToken(token:string) {
-    //     const verification = jwt.verify(token, process.env.APP_SECRET);
-    //     return verification;
-    //   }
-
-
 }

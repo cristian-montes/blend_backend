@@ -2,11 +2,15 @@ import { Transaction } from "../models/Transactions";
 import Stripe from "stripe";
 import { User } from "../models/Users";
 
-const stripe = new Stripe('sk_test_51K9YyABg9yAQBAw8rGSNxfAYWuicQ83S2ZPG1HizU2BHdkhy9IS06NjeBu31HvAiIf2VrhTJIlPUDiAneIWkhDnS00BD8M2sqH',{
+// const stripe = new Stripe('sk_test_51K9YyABg9yAQBAw8rGSNxfAYWuicQ83S2ZPG1HizU2BHdkhy9IS06NjeBu31HvAiIf2VrhTJIlPUDiAneIWkhDnS00BD8M2sqH',{
+//     apiVersion:"2020-08-27",
+//     typescript: true,
+// });
+
+const stripe = new Stripe(process.env.STRIPE_KEY, {
     apiVersion:"2020-08-27",
     typescript: true,
 });
-
 
 
 export class TransactionServices{
@@ -17,7 +21,7 @@ export class TransactionServices{
         }):Promise<Transaction>{
 
         const recipient: User = await User.findById(transaction.recipient_id);
-        
+        const convertedAmount = transaction.amount/100
         const params: Stripe.PaymentIntentCreateParams = {
             amount: transaction.amount,
             currency: 'usd',
@@ -34,7 +38,7 @@ export class TransactionServices{
             sender_id:transaction.sender_id,
             recipient_id: transaction.recipient_id,
             payment_intent_id: payment_intent_id,
-            amount: transaction.amount,
+            amount: convertedAmount,
             payment_confirmed: false,
          })
 

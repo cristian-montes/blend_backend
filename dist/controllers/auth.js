@@ -13,9 +13,14 @@ authentication.post('/signup', async (req, res, next) => {
     try {
         const newUser = await UserServices_1.UserServices.create(req.body);
         // attachCookie(res, newUser);
-        res.cookie('session', newUser.authToken(), {
+        console.log(process.env.APP_URL);
+        console.log('auth token', newUser.authToken());
+        console.log(!!process.env.SECURE_COOKIES);
+        res.cookie('mm_session', newUser.authToken(), {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,
+            sameSite: !!process.env.SECURE_COOKIES ? 'none' : 'lax',
+            secure: !!process.env.SECURE_COOKIES
         });
         res.send(newUser);
     }
@@ -27,9 +32,14 @@ authentication.post('/signin', async (req, res, next) => {
     try {
         const existingUser = await UserServices_1.UserServices.authorize(req.body);
         // attachCookie(res, existingUser);
-        res.cookie('session', existingUser.authToken(), {
+        console.log(process.env.APP_URL);
+        console.log('auth token', existingUser.authToken());
+        console.log(!!process.env.SECURE_COOKIES);
+        res.cookie('mm_session', existingUser.authToken(), {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,
+            sameSite: !!process.env.SECURE_COOKIES ? 'none' : 'lax',
+            secure: !!process.env.SECURE_COOKIES
         });
         res.send(existingUser);
     }
@@ -39,8 +49,10 @@ authentication.post('/signin', async (req, res, next) => {
 });
 authentication.get('/logout', async (req, res, next) => {
     try {
-        res.clearCookie('session', {
-            httpOnly: true
+        res.clearCookie('mm_session', {
+            httpOnly: true,
+            sameSite: !!process.env.SECURE_COOKIES ? 'none' : 'lax',
+            secure: !!process.env.SECURE_COOKIES
         });
         res.send('Sad to see you not do more money moves for now :(');
     }
