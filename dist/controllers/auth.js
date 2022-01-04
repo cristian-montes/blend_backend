@@ -18,7 +18,9 @@ authentication.post('/signup', async (req, res, next) => {
         console.log(!!process.env.SECURE_COOKIES);
         res.cookie('mm_session', newUser.authToken(), {
             httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 2
+            maxAge: 1000 * 60 * 60 * 2,
+            sameSite: !!process.env.SECURE_COOKIES ? 'none' : 'lax',
+            secure: !!process.env.SECURE_COOKIES
         });
         res.send(newUser);
     }
@@ -36,6 +38,8 @@ authentication.post('/signin', async (req, res, next) => {
         res.cookie('mm_session', existingUser.authToken(), {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,
+            sameSite: !!process.env.SECURE_COOKIES ? 'none' : 'lax',
+            secure: !!process.env.SECURE_COOKIES
         });
         res.send(existingUser);
     }
@@ -47,6 +51,8 @@ authentication.get('/logout', async (req, res, next) => {
     try {
         res.clearCookie('mm_session', {
             httpOnly: true,
+            sameSite: !!process.env.SECURE_COOKIES ? 'none' : 'lax',
+            secure: !!process.env.SECURE_COOKIES
         });
         res.send('Sad to see you not do more money moves for now :(');
     }

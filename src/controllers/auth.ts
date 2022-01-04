@@ -21,7 +21,9 @@ const authentication = Router();
             console.log(!!process.env.SECURE_COOKIES)
             res.cookie('mm_session', newUser.authToken(),{
                 httpOnly: true,
-                maxAge: 1000 * 60 * 60 * 2
+                maxAge: 1000 * 60 * 60 * 2,
+                sameSite: !!process.env.SECURE_COOKIES ? 'none' : 'lax',
+                secure:!!process.env.SECURE_COOKIES
             })
             res.send(newUser)
         } catch (error) {
@@ -40,6 +42,8 @@ const authentication = Router();
             res.cookie('mm_session', existingUser.authToken(),{
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 2,
+                sameSite: !!process.env.SECURE_COOKIES ? 'none' : 'lax',
+                secure:!!process.env.SECURE_COOKIES
             })
 
             res.send(existingUser)
@@ -52,6 +56,8 @@ const authentication = Router();
         try {
             res.clearCookie('mm_session', {
                 httpOnly: true,
+                sameSite: !!process.env.SECURE_COOKIES ? 'none' : 'lax',
+                secure:!!process.env.SECURE_COOKIES
             });
             res.send('Sad to see you not do more money moves for now :(');
         } catch (error) {
