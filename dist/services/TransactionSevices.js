@@ -19,15 +19,23 @@ class TransactionServices {
     static async createTransaction(transaction) {
         const recipient = await Users_1.User.findById(transaction.recipient_id);
         const convertedAmount = transaction.amount / 100;
+        // **** to transfer ****//
+        // const params: Stripe.PaymentIntentCreateParams = {
+        //     amount: transaction.amount,
+        //     currency: 'usd',
+        //     payment_method_types: ['card'],
+        //     transfer_data: {
+        //         destination: recipient.connected_acct_id
+        //     }
+        //   };
         const params = {
             amount: transaction.amount,
             currency: 'usd',
-            payment_method_types: ['card'],
-            transfer_data: {
-                destination: recipient.connected_acct_id
-            }
+            payment_method_types: ['card']
         };
-        const resposnse = await stripe.paymentIntents.create(params);
+        const resposnse = await stripe.paymentIntents.create(params, {
+            stripeAccount: recipient.connected_acct_id
+        });
         const payment_intent_id = resposnse.id;
         const setTransaction = await Transactions_1.Transaction.insertTransaction({
             sender_id: transaction.sender_id,
