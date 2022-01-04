@@ -19,7 +19,7 @@ exports.app.use(express_1.default.json());
 exports.app.use((0, cookie_parser_1.default)());
 exports.app.get('/', async (req, res, next) => {
     try {
-        const welcomeMsg = 'Welcome to MoneyMoves Share and get money!';
+        const welcomeMsg = 'Welcome to MoneyMoves Share and Recieve money!';
         res.json(welcomeMsg);
     }
     catch (error) {

@@ -13,9 +13,9 @@ authentication.post('/signup', async (req, res, next) => {
     try {
         const newUser = await UserServices_1.UserServices.create(req.body);
         // attachCookie(res, newUser);
-        console.log(process.env.APP_URL);
-        console.log('auth token', newUser.authToken());
-        console.log(!!process.env.SECURE_COOKIES);
+        // console.log(process.env.APP_URL)
+        // console.log('auth token',newUser.authToken())
+        // console.log(!!process.env.SECURE_COOKIES)
         res.cookie('mm_session', newUser.authToken(), {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,
@@ -32,9 +32,9 @@ authentication.post('/signin', async (req, res, next) => {
     try {
         const existingUser = await UserServices_1.UserServices.authorize(req.body);
         // attachCookie(res, existingUser);
-        console.log(process.env.APP_URL);
-        console.log('auth token', existingUser.authToken());
-        console.log(!!process.env.SECURE_COOKIES);
+        // console.log(process.env.APP_URL)
+        // console.log('auth token',existingUser.authToken())
+        // console.log(!!process.env.SECURE_COOKIES)
         res.cookie('mm_session', existingUser.authToken(), {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 2,

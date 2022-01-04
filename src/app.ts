@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 app.get('/', async (req:Request, res:Response, next: NextFunction)=>{
     try {
-        const welcomeMsg = 'Welcome to MoneyMoves Share and get money!';
+        const welcomeMsg = 'Welcome to MoneyMoves Share and Recieve money!';
         res.json(welcomeMsg);
     } catch (error) {
         next(error);
