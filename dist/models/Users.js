@@ -51,7 +51,6 @@ class User {
     }
     //-------------------------------------------------------------------------------------//
     authToken() {
-        //  console.log('AUTHTOKEN',this.row)
         return jsonwebtoken_1.default.sign(this.toJSON(), process.env.APP_SECRET, {
             expiresIn: '24h'
         });
