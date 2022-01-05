@@ -7,6 +7,9 @@ declare global {
             PORT?: string;
             SALT_ROUNDS: number;
             APP_SECRET: string;
+            STRIPE_KEY:string;
+            APP_URL:string;
+            SECURE_COOKIES: boolean;
         }
     }
 }

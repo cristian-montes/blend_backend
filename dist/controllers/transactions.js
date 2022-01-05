@@ -8,11 +8,9 @@ const TransactionSevices_1 = require("../services/TransactionSevices");
 const ensureAuth_1 = __importDefault(require("../middleware/ensureAuth"));
 const Users_1 = require("../models/Users");
 const theTransactions = (0, express_1.Router)();
-theTransactions.get('/searchrecipient', ensureAuth_1.default, async (req, res, next) => {
+theTransactions.get('/searchrecipient/:email', ensureAuth_1.default, async (req, res, next) => {
     try {
-        console.log('BODY', req.body);
-        const searchedRecipient = await Users_1.User.findByEmail(req.body);
-        console.log('searchedRecipient', searchedRecipient);
+        const searchedRecipient = await Users_1.User.findByEmail(req.params.email);
         res.send(searchedRecipient);
     }
     catch (error) {
@@ -22,8 +20,16 @@ theTransactions.get('/searchrecipient', ensureAuth_1.default, async (req, res, n
 theTransactions.post('/makeTransaction', ensureAuth_1.default, async (req, res, next) => {
     try {
         const newTransaction = await TransactionSevices_1.TransactionServices.createTransaction({ sender_id: req.user.id, ...req.body });
-        console.log('BODY', req.body);
         res.send(newTransaction);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+theTransactions.get('/transactionhistory', ensureAuth_1.default, async (req, res, next) => {
+    try {
+        const userTransactionHistoty = await Users_1.User.getUserTransactionsById(req.user.id);
+        res.send(userTransactionHistoty);
     }
     catch (error) {
         next(error);
