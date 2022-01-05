@@ -12,14 +12,3 @@ exports.pool = new pg_1.Pool({
     ssl: process.env.PGSSLMODE && { rejectUnauthorized: false } ? { rejectUnauthorized: false } : false
 });
 exports.pool.on('connect', () => console.log('Postgres connected'));
-// export const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: process.env.DATABASE_URL ? true : false
-// })
-// pool.on('connect', () => console.log('Postgres connected'));
-// const rejectUnauthorized = process.env.PGSSLMODE ? { rejectUnauthorized: false} : { rejectUnauthorized: true}
-// export const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl:rejectUnauthorized,
-// });
-// pool.on('connect', () => console.log('Postgres connected'))

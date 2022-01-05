@@ -6,16 +6,20 @@ import cors from 'cors';
 import authentication  from './controllers/auth';
 import theTransactions from './controllers/transactions';
 import error from './middleware/error';
+import notFound from './middleware/not-found';
 
 export const app = express();
 
-app.use(cors())
+app.use(cors({
+    origin:true,
+    credentials: true
+}))
 app.use(express.json());
 app.use(cookieParser());
 
 app.get('/', async (req:Request, res:Response, next: NextFunction)=>{
     try {
-        const welcomeMsg = 'Welcome to MoneyMoves Share and get money!';
+        const welcomeMsg = 'Welcome to MoneyMoves Share and Recieve money!';
         res.json(welcomeMsg);
     } catch (error) {
         next(error);
@@ -28,3 +32,4 @@ app.get('/', async (req:Request, res:Response, next: NextFunction)=>{
 app.use('/auth', authentication);
 app.use('/transactions', theTransactions);
 app.use(error);
+app.use(notFound)

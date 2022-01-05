@@ -10,7 +10,6 @@ dotenv_1.default.config();
 const PORT = parseInt(process.env.PORT) || 7890;
 app_1.app.listen(PORT, () => {
     console.log(`Started on ${PORT}`);
-    // console.log('salt_rounds is', typeof(+process.env.SALT_ROUNDS));
     process.on('exit', () => {
         console.log('Goodbye!');
         pool_1.pool.end();

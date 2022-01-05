@@ -24,13 +24,12 @@ export class User {
         return new User(rows[0])
     }
 
-    static async findByEmail(email: {email:string}){
-        console.log('email', email.email)
+    static async findByEmail(email:string){
+
         const { rows } = await pool.query(
-            // 'SELECT * FROM users_active'
-            'SELECT * FROM users_active WHERE email=$1',[email.email]
+            'SELECT * FROM users_active WHERE email=$1',[email]
         );
-        console.log('rows', rows[0]);
+       
         if (!rows[0]) throw new Error('No accounts registered under this email address');
 
         return new User(rows[0]);
@@ -47,6 +46,41 @@ export class User {
 
         return new User(rows[0]);
     }
+
+
+    static async getUserTransactionsById(id:number){
+        const userSentTo = await pool.query(
+            `SELECT users_active.id AS recipientId, name, email, amount, transactions.payment_intent_id AS paymentId
+            FROM transactions
+            LEFT JOIN users_active ON users_active.id = transactions.recipient_id
+            WHERE sender_id=$1`,[id]
+            )
+            
+        const usersRecivedFrom = await pool.query(
+            `SELECT users_active.id AS senderId, name, email, amount, transactions.payment_intent_id AS paymentId 
+            FROM transactions
+            LEFT JOIN users_active ON users_active.id = transactions.sender_id
+            WHERE recipient_id=$1`, [id]
+        )
+        
+
+        const convinedTransactions = [];
+
+        for(const transaction of usersRecivedFrom.rows){
+            convinedTransactions.push(transaction);
+        }
+
+        for(const transaction of userSentTo.rows){
+            convinedTransactions.push(transaction);
+        }
+
+        return convinedTransactions
+
+
+        }
+
+
+
      //-------------------------------------------------------------------------------------//
   
      authToken(){
@@ -64,7 +98,6 @@ export class User {
             connected_acct_id: this.connected_acct_id
         };
     }
-    //--
 
 
 }
